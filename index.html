@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.4/dist/mindar-image.prod.js"></script>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>AR Example</title>
+</head>
+<body>
+    <div class="example-container">
+        <div id="example-scanning-overlay" class="hidden">
+            <div class="inner">
+                <img src="2card.png" alt=""/>
+                <div class="scanline"></div>
+            </div>
+        </div>
+        <a-scene
+            mindar-image="imageTargetSrc:./cfg.mind; showStats: false; uiScanning: #example-scanning-overlay;"
+            embedded
+            color-space="sRGB"
+            renderer="colorManagement: true, physicallyCorrectLights"
+            vr-mode-ui="enabled: false"
+            device-orientation-permission-ui="enabled: false"
+        >
+            <a-assets>
+                <a-asset-item id="robot" src="nerd_emoji_3d.glb"></a-asset-item>
+                <a-asset-item id="robot1" src="emoji-01.glb"></a-asset-item>
+            </a-assets>
+
+            <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: 10000; objects: .clickable"></a-camera>
+
+            <!-- First target image -->
+            <a-entity mindar-image-target="targetIndex: 0">
+                <a-entity 
+                    gltf-model="#robot" 
+                    animation="property: rotation; to: 0 360 0; loop: true; dur: 8000" 
+                    scale="0.65 0.65 0.65" 
+                    position="0 0 0"
+                >
+                </a-entity>
+            </a-entity>
+
+            <!-- Second target image -->
+            <a-entity mindar-image-target="targetIndex: 1">
+                <a-entity 
+                    gltf-model="#robot1" 
+                    animation="property: rotation; to: 0 360 0; loop: true; dur: 8000" 
+                    scale="0.15 0.15 0.15" 
+                    position="0 0 0"
+                >
+                </a-entity>
+            </a-entity>
+        </a-scene>
+    </div>
+</body>
+</html>
